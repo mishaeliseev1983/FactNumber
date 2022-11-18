@@ -2,28 +2,28 @@ package com.melyseev.factnumber.domain
 
 
 import com.melyseev.factnumber.BaseTest
-import com.melyseev.factnumber.presentation.ManageResources
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
 
 class NumberInteractorTest {
 
     lateinit var numberInteractor: NumberInteractor
     lateinit var manageResources: BaseTest.TestManageResources
-    lateinit var handleError: HandleError
+    lateinit var handleError: HandleError.HandleToString
     lateinit var repository: TestNumberRepository
+
     @Before
     fun setUp() {
         repository = TestNumberRepository()
         manageResources = BaseTest.TestManageResources()
-        handleError = HandleError.Base(manageResources)
-        numberInteractor =  NumberInteractor.Base(repository, handleError)
+        handleError = HandleError.HandleToString(manageResources)
+        numberInteractor = NumberInteractor.Base(repository, handleError)
     }
 
     @Test
-    fun allNumbers_success()= runBlocking {
+    fun allNumbers_success() = runBlocking {
         val number = numberInteractor.init(isFirstInit = true)
 
         assertEquals(0, repository.aboutNumberCalledCount)
@@ -39,9 +39,10 @@ class NumberInteractorTest {
         val number = numberInteractor.fetchAboutNumber("1")
         assertEquals(1, repository.aboutNumberCalledCount)
         assertEquals(1, repository.allNumbers.size)
-        assertEquals(NumberFact("1", "fact 1"),repository.allNumbers[0])
+        assertEquals(NumberFact("1", "fact 1"), repository.allNumbers[0])
         assertEquals(NumberResult.Success(listOf(NumberFact("1", "fact 1"))), number)
     }
+
     @Test
     fun aboutNumber_failure() = runBlocking {
         repository.expectingException = true
@@ -62,11 +63,12 @@ class NumberInteractorTest {
         val number = numberInteractor.fetchAboutRandom()
 
 
-        assertEquals(number, NumberResult.Success(listOf(NumberFact("1","fact 1"))))
+        assertEquals(number, NumberResult.Success(listOf(NumberFact("1", "fact 1"))))
         assertEquals(1, repository.randomNumberCalledCount)
         assertEquals(1, repository.allNumbers.size)
-        assertEquals(NumberFact("1", "fact 1"),repository.allNumbers[0])
+        assertEquals(NumberFact("1", "fact 1"), repository.allNumbers[0])
     }
+
     @Test
     fun aboutRandom_failure() = runBlocking {
         repository.expectingException = true
@@ -80,7 +82,7 @@ class NumberInteractorTest {
     }
 
 
-    class TestNumberRepository: NumberRepository {
+    class TestNumberRepository : NumberRepository {
 
         var aboutNumberCalledCount = 0
         var randomNumberCalledCount = 0
@@ -89,28 +91,28 @@ class NumberInteractorTest {
 
         var expectingException = false
 
-        var numberFact= NumberFact("", "")
-        fun expectedNumberFact(numFact: NumberFact){
+        var numberFact = NumberFact("", "")
+        fun expectedNumberFact(numFact: NumberFact) {
             numberFact = numFact
         }
 
-        override fun getNumbers(): List<NumberFact> {
+        override suspend fun getNumbers(): List<NumberFact> {
             getNumberCalledCount++
-            return  allNumbers
+            return allNumbers
         }
 
-        override fun getAboutNumber(numberAbout: String): NumberFact {
+        override suspend fun getAboutNumber(numberAbout: String): NumberFact {
             aboutNumberCalledCount++
-            if(expectingException)
+            if (expectingException)
                 throw DomainException.NoInternetException
 
             allNumbers.add(numberFact)
             return numberFact
         }
 
-        override fun getRandomNumber(): NumberFact {
+        override suspend fun getRandomNumber(): NumberFact {
             randomNumberCalledCount++
-            if(expectingException)
+            if (expectingException)
                 throw DomainException.NoInternetException
 
             allNumbers.add(numberFact)

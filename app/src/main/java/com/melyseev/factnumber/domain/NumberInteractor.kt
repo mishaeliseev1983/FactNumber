@@ -6,7 +6,7 @@ interface NumberInteractor {
     suspend fun fetchAboutNumber(number: String): NumberResult
 
 
-    class Base(val repository: NumberRepository, val handleError: HandleError):NumberInteractor{
+    class Base(val repository: NumberRepository, val handleError: HandleError.HandleToString):NumberInteractor{
         override suspend fun init(isFirstInit: Boolean): NumberResult {
             if(isFirstInit)
                 return NumberResult.Success(emptyList())
