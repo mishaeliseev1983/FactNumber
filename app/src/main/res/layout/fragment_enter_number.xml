@@ -12,20 +12,21 @@
         android:layout_height="match_parent">
     </ProgressBar>
     <EditText
-        android:id="@+id/et_inputNumber"
+        android:id="@+id/inputEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:id="@+id/randomFactButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/getrandomfact"/>
     <Button
-        android:id="@+id/btn_getfact"
+        android:id="@+id/factButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/getfact"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_facts"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

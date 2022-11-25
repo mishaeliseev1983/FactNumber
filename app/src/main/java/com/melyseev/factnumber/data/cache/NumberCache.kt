@@ -10,7 +10,7 @@ import java.util.*
 data class NumberCache(
     @PrimaryKey @ColumnInfo(name = ID) val id: String,
     @ColumnInfo(name = FACT) val fact: String,
-    @ColumnInfo(name = DATE) val date: Long,
+    @ColumnInfo(name = DATE) val date: Long
     ){
     companion object {
         const val TABLE_NUMBERS= "TABLE_NUMBERS"

@@ -1,24 +1,23 @@
 package com.melyseev.factnumber.presentation
 
-import android.content.Context
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.melyseev.factnumber.R
-import com.melyseev.factnumber.domain.NumberFact
 import com.melyseev.factnumber.domain.NumberInteractor
-import com.melyseev.factnumber.domain.NumberResult
 import com.melyseev.factnumber.domain.NumberResultMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class EnterNumberViewModel(
-    val dispatchersList: DispatchersList,
-    val communication: NumberCommunication,
-    val interactor: NumberInteractor,
-    val numberResultMapper: NumberResultMapper,
-    val manageResources: ManageResources
-) : ViewModel(), FetchNumber {
+    private val dispatchersList: DispatchersList = DispatchersList.Base(),
+    private val communication: NumberCommunication,
+    private val interactor: NumberInteractor,
+    private val numberResultMapper: NumberResultMapper,
+    private val manageResources: ManageResources
+) : ViewModel(), FetchNumber, ObserveCommunication {
 
 
    override fun init(isFirstTime: Boolean) {
@@ -56,6 +55,18 @@ class EnterNumberViewModel(
 
 }
 
+
+    override fun observeProgress(owner: LifecycleOwner, observer: Observer<Boolean>) {
+        communication.observeProgress(owner, observer)
+    }
+
+    override fun observeNumberList(owner: LifecycleOwner, observer: Observer<List<NumberUI>>) {
+        communication.observeNumberList(owner, observer)
+    }
+
+    override fun observeState(owner: LifecycleOwner, observer: Observer<UIState>) {
+        communication.observeState(owner, observer)
+    }
 
 interface  DispatchersList {
 

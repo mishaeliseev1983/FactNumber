@@ -7,14 +7,22 @@ interface CloudDataSource {
     suspend fun randomNumber(): NumberData
 
 
-    class Base(service: CloudNumberService): CloudDataSource{
+    class Base(private val service: CloudNumberService): CloudDataSource{
         override suspend fun number(number: String): NumberData {
-            TODO()
+            val fact = service.fact(number)
+            return NumberData(id = number, fact = fact)
         }
 
         override suspend fun randomNumber(): NumberData {
-            TODO("Not yet implemented")
+            val str = service.random()
+
+            val valueNumber = str.headers()[HEADER_FOR_SEARCH_NUMBER].orEmpty()
+            val body = str.body().orEmpty()
+            return NumberData( id = valueNumber, fact =  body)
         }
 
+        companion object {
+            const val HEADER_FOR_SEARCH_NUMBER = "X-Numbers-API-Number"
+        }
     }
 }

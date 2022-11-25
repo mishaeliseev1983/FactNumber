@@ -1,7 +1,7 @@
 package com.melyseev.factnumber.domain
 
 import com.melyseev.factnumber.data.*
-import com.melyseev.factnumber.data.cache.LocalDataSource
+import com.melyseev.factnumber.data.cache.CacheDataSource
 import com.melyseev.factnumber.data.cloud.CloudDataSource
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -128,7 +128,7 @@ class NumberRepositoryTest {
     }
 
     //wrapper room
-    class TestLocalDataSource : LocalDataSource {
+    class TestLocalDataSource : CacheDataSource {
 
         val numbers = mutableListOf<NumberData>()
         var getNumbersCalledCount = 0

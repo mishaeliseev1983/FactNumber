@@ -13,12 +13,16 @@ interface  CacheModule {
             return@lazy Room.databaseBuilder(
                 context,
                 NumbersDataBase::class.java,
-                NumberCache.TABLE_NUMBERS
+                DATABASE_NAME
             )
                 .fallbackToDestructiveMigration()
                 .build()
         }
 
         override fun provideDataBase(): NumbersDataBase = database
+
+        companion object{
+            const val DATABASE_NAME = "numbers_db"
+        }
     }
 }

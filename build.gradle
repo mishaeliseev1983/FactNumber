@@ -7,5 +7,4 @@ plugins {
 
 ext {
     roomVersion = '2.4.1'
-    retrofitVersion = '2.9.0'
 }
