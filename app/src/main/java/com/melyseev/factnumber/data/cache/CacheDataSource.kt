@@ -3,7 +3,7 @@ package com.melyseev.factnumber.data.cache
 import com.melyseev.factnumber.data.NumberData
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-
+import javax.inject.Inject
 
 
 interface CacheDataSource {
@@ -13,7 +13,7 @@ interface CacheDataSource {
     suspend fun saveNumber(number: NumberData)
 
 
-    class Base(private val dao: NumbersDao,
+    class Base @Inject constructor(private val dao: NumbersDao,
                                        private val mapperToNumberCache: NumberData.Mapper<NumberCache>): CacheDataSource{
 
         private val mutex = Mutex()

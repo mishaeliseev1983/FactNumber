@@ -3,18 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".EnterNumberFragment">
+    android:orientation="vertical">
     <ProgressBar
         android:id="@+id/progress"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ProgressBar>
-    <EditText
-        android:id="@+id/inputEditText"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/input_a_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/randomFactButton"
         android:layout_width="match_parent"

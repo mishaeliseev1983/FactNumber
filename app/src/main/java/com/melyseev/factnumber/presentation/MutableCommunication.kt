@@ -3,6 +3,7 @@ package com.melyseev.factnumber.presentation
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import javax.inject.Inject
 
 interface Change<Unit,S> {
     fun change(source: S) : Unit
@@ -29,14 +30,14 @@ abstract class Post<T>(liveData: MutableLiveData<T> = MutableLiveData()) : Abstr
 
 
 interface ProgressCommunication: Mutable<Boolean>{
-    class Base: Post<Boolean>(), ProgressCommunication
+    class Base @Inject constructor(): Post<Boolean>(), ProgressCommunication
 }
 
 interface NumberStateCommunication: Mutable<UIState>{
-    class Base: Post<UIState>(), NumberStateCommunication
+    class Base @Inject constructor(): Post<UIState>(), NumberStateCommunication
 }
 
 interface NumbersListCommunication: Mutable<List<NumberUI>>{
-    class Base: Post<List<NumberUI>>(), NumbersListCommunication
+    class Base @Inject constructor(): Post<List<NumberUI>>(), NumbersListCommunication
 }
 

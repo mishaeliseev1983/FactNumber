@@ -5,8 +5,9 @@ import com.melyseev.factnumber.data.cloud.CloudDataSource
 import com.melyseev.factnumber.domain.NumberFact
 import com.melyseev.factnumber.domain.NumberRepository
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-class NumberRepositoryBase(
+class NumberRepositoryBase @Inject constructor(
     private val localDataSource: CacheDataSource,
     private val cloudDataSource: CloudDataSource,
     private val mapperToNumberFact: MapperToNumberFact,

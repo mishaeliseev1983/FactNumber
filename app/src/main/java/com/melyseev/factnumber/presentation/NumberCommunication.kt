@@ -2,6 +2,7 @@ package com.melyseev.factnumber.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import javax.inject.Inject
 
 
 interface NumberCommunication : ObserveCommunication{
@@ -9,7 +10,7 @@ interface NumberCommunication : ObserveCommunication{
     fun showNumbersList(numbersList: List<NumberUI>)
     fun showState(uiState: UIState)
 
-    class Base(
+    class Base @Inject constructor(
         private val progressCommunication: ProgressCommunication,
         private val numbersListCommunication: NumbersListCommunication,
         private val numberStateCommunication: NumberStateCommunication

@@ -1,13 +1,15 @@
 package com.melyseev.factnumber.data.cloud
 
 import com.melyseev.factnumber.data.NumberData
+import javax.inject.Inject
+
 
 interface CloudDataSource {
     suspend fun number(number: String): NumberData
     suspend fun randomNumber(): NumberData
 
 
-    class Base(private val service: CloudNumberService): CloudDataSource{
+        class Base @Inject constructor(private val service: CloudNumberService): CloudDataSource{
         override suspend fun number(number: String): NumberData {
             val fact = service.fact(number)
             return NumberData(id = number, fact = fact)

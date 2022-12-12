@@ -1,5 +1,7 @@
 package com.melyseev.factnumber
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.melyseev.factnumber.domain.NumberFact
 import com.melyseev.factnumber.domain.NumberInteractor
 import com.melyseev.factnumber.domain.NumberRepository
@@ -29,6 +31,18 @@ abstract class BaseTest {
         override fun showState(uiState: UIState) {
             stateCalledList.add(uiState)
         }
+
+        override fun observeProgress(owner: LifecycleOwner, observer: Observer<Boolean>) {
+            TODO("Not yet implemented")
+        }
+
+        override fun observeNumberList(owner: LifecycleOwner, observer: Observer<List<NumberUI>>) {
+            TODO("Not yet implemented")
+        }
+
+        override fun observeState(owner: LifecycleOwner, observer: Observer<UIState>) {
+            TODO("Not yet implemented")
+        }
     }
 
     class TestNumberFactInteractor: NumberInteractor {
@@ -41,7 +55,7 @@ abstract class BaseTest {
         fun changeExpectedResult(numberResult: NumberResult){
             result = numberResult
         }
-        override suspend fun init(isFirst: Boolean): NumberResult {
+        override suspend fun init(): NumberResult {
             initCalledList.add(result)
             return result
         }

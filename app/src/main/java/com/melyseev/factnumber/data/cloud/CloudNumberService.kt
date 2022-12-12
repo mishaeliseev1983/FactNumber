@@ -10,8 +10,6 @@ interface CloudNumberService {
     @GET("{id}")
     suspend fun fact(@Path("id") id: String): String
 
-
-
     @GET("/random/math")
     suspend fun random(): Response<String>
 

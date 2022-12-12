@@ -1,15 +1,16 @@
 package com.melyseev.factnumber.domain
 
+import javax.inject.Inject
+
 interface NumberInteractor {
-    suspend fun init(isFirstInit: Boolean): NumberResult
+    suspend fun init(): NumberResult
     suspend fun fetchAboutRandom(): NumberResult
     suspend fun fetchAboutNumber(number: String): NumberResult
 
 
-    class Base(val repository: NumberRepository, private val handleError: HandleError.HandleToString):NumberInteractor{
-        override suspend fun init(isFirstInit: Boolean): NumberResult {
-            if(isFirstInit)
-                return NumberResult.Success(emptyList())
+    class Base @Inject constructor(private val repository: NumberRepository,
+                                   private val handleError: HandleError.HandleToString):NumberInteractor{
+        override suspend fun init(): NumberResult {
             return NumberResult.Success(repository.getNumbers())
         }
 

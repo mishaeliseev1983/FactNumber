@@ -3,8 +3,9 @@ package com.melyseev.factnumber.domain
 import com.melyseev.factnumber.presentation.NumberCommunication
 import com.melyseev.factnumber.presentation.NumberUI
 import com.melyseev.factnumber.presentation.UIState
+import javax.inject.Inject
 
-class NumberResultMapper(
+class NumberResultMapper @Inject constructor(
    private val communications: NumberCommunication,
    private val mapperNumberFactToNumberUI: NumberFact.Mapper<NumberUI>
     ): NumberResult.Mapper<Unit>{

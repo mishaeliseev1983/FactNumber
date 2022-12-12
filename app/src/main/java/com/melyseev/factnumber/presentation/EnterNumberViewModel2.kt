@@ -4,43 +4,39 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.melyseev.factnumber.R
 import com.melyseev.factnumber.domain.NumberInteractor
-import com.melyseev.factnumber.domain.NumberResultMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class EnterNumberViewModel @Inject constructor(
+class EnterNumberViewModel2 @Inject constructor(
     private val dispatchersList: DispatchersList,
     private val communication: NumberCommunication,
-    private val interactor: NumberInteractor,
-    private val numberResultMapper: NumberResultMapper,
-    private val manageResources: ManageResources
-) : ViewModel(), FetchNumber, ObserveCommunication, ClearError {
+    private val interactor: NumberInteractor
+) : ViewModel(), FetchNumber, ObserveCommunication {
 
 
     override fun init(isFirstTime: Boolean) {
         if (isFirstTime) {
             communication.showProgress(true)
             viewModelScope.launch(dispatchersList.io()) {
-                val numberResult = interactor.init()
-                numberResult.map(numberResultMapper)
+
+                delay(2_000)
                 communication.showProgress(false)
             }
         }
     }
 
     override fun fetchAboutNumber(number: String) {
-        if (number.isEmpty()) {
-            communication.showState(UIState.Failure(manageResources.string(R.string.enter_number)))
-        } else {
+        if(number.isEmpty()){
+            communication.showState(UIState.Failure("1111111"))
+        }else{
 
             communication.showProgress(true)
             viewModelScope.launch(dispatchersList.io()) {
-                val res = interactor.fetchAboutNumber(number)
-                res.map(numberResultMapper)
+                delay(2_000)
                 communication.showProgress(false)
             }
         }
@@ -49,10 +45,10 @@ class EnterNumberViewModel @Inject constructor(
     override fun fetchRandomNumber() {
         communication.showProgress(true)
         viewModelScope.launch(dispatchersList.io()) {
-            val res = interactor.fetchAboutRandom()
-            res.map(numberResultMapper)
+            delay(2_000)
             communication.showProgress(false)
         }
+
     }
 
 
@@ -68,7 +64,7 @@ class EnterNumberViewModel @Inject constructor(
         communication.observeState(owner, observer)
     }
 
-    interface DispatchersList {
+    interface  DispatchersList {
 
         fun io(): CoroutineDispatcher
         fun ui(): CoroutineDispatcher
@@ -83,11 +79,4 @@ class EnterNumberViewModel @Inject constructor(
             }
         }
     }
-
-    override fun clearError()  = communication.showState( UIState.Clear() )
-}
-
-
-interface ClearError{
-    fun clearError()
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/number_only"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:text="12"
+        android:textStyle="bold">
+    </TextView>
+
+    <TextView
+        android:id="@+id/number_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:text="fact about 12">>
+
+    </TextView>
+
+</LinearLayout>

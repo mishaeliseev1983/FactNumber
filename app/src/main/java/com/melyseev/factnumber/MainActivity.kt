@@ -2,16 +2,15 @@ package com.melyseev.factnumber
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
+import com.melyseev.factnumber.presentation.EnterNumberFragment
+
 
 class MainActivity : AppCompatActivity(), EnterNumberFragment.ShowDetails{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         if(savedInstanceState!=null){
-
             val pa= savedInstanceState.get("PARAM1")
             println("param1 = $pa")
         }
@@ -24,10 +23,6 @@ class MainActivity : AppCompatActivity(), EnterNumberFragment.ShowDetails{
         }
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
     override fun showDetails() {
         val enterNumberFragment = DetailsNumberFragment.newInstance("DETAILS")

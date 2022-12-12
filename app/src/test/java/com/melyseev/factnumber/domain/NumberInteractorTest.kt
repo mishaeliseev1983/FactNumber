@@ -24,7 +24,7 @@ class NumberInteractorTest {
 
     @Test
     fun allNumbers_success() = runBlocking {
-        val number = numberInteractor.init(isFirstInit = true)
+        val number = numberInteractor.init()
 
         assertEquals(0, repository.aboutNumberCalledCount)
         assertEquals(0, repository.allNumbers.size)

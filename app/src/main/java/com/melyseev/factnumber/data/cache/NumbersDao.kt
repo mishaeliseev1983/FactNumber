@@ -13,7 +13,7 @@ interface NumbersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(entity: NumberCache)
 
-    @Query("SELECT * FROM $TABLE_NUMBERS")
+    @Query("SELECT * FROM $TABLE_NUMBERS ORDER BY DATE DESC")
     fun getAllNumbers(): List<NumberCache>
 
     @Query("SELECT * FROM $TABLE_NUMBERS WHERE id = :numberId")

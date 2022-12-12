@@ -4,10 +4,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import javax.inject.Inject
 
 interface CloudeModule {
     fun <T> getService(clazz: Class<T>): T
-    class Base : CloudeModule {
+
+    class Base @Inject constructor()  : CloudeModule {
         override fun <T> getService(clazz: Class<T>): T {
 
             val interceptor = HttpLoggingInterceptor().apply {
